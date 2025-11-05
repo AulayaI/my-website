@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Love Story — White Oat & Soft Pink</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600&family=Allura&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F5F5DC; /* White Oat / Beige */
+      --pink:#FFC0CB; /* Soft Pink */
+      --text:#333333; /* Dark Gray Text */
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:16px;
+      --transition:all .3s ease; /* smooth & slow */
+    }
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family: 'Poppins', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+    header{
+      position:sticky; top:0; z-index:40;
+      background:rgba(245,245,220,.9);
+      backdrop-filter:saturate(180%) blur(6px);
+      border-bottom:1px solid rgba(0,0,0,.05);
+    }
+    .container{max-width:1100px; margin-inline:auto; padding:16px;}
+    nav{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    nav .brand{font-family:'Allura', cursive; font-size:28px; letter-spacing:.5px}
+    .nav-links{display:flex; gap:14px; flex-wrap:wrap}
+    .nav-links a{
+      text-decoration:none; color:var(--text); padding:8px 12px; border-radius:999px;
+      transition:var(--transition)
+    }
+    .nav-links a:hover{background:var(--pink); color:#111}
+
+    /* Hero / Beranda */
+    .hero{padding:72px 16px 56px; text-align:center}
+    .hero h1{
+      font-family:'Sacramento','Allura',cursive; font-size:56px; margin:0 0 8px; font-weight:500;
+    }
+    .hero .date{opacity:.85; font-weight:500}
+    .hero .quote{
+      margin:18px auto 0; max-width:700px; font-size:18px; opacity:.95
+    }
+    .card{
+      background:#fff; border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:20px; transition:var(--transition)
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      background:var(--pink); color:#111; border:none; border-radius:999px; padding:10px 16px;
+      font-weight:600; cursor:pointer; box-shadow:var(--shadow); transition:var(--transition)
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .muted{opacity:.8}
+
+    /* Sections */
+    section{padding:64px 16px}
+    section h2{font-size:30px; margin:0 0 18px; font-weight:600; text-align:center}
+    .section-desc{max-width:720px; margin:0 auto 28px; text-align:center; opacity:.9}
+
+    /* Timeline */
+    .timeline{position:relative; display:grid; gap:24px; max-width:900px; margin:0 auto}
+    .timeline::before{
+      content:""; position:absolute; left:22px; top:0; bottom:0; width:3px; background:linear-gradient(to bottom, rgba(255,192,203,.7), rgba(255,192,203,.2));
+    }
+    .milestone{display:grid; grid-template-columns:48px 1fr; gap:16px; align-items:flex-start}
+    .dot{width:14px; height:14px; border-radius:999px; background:var(--pink); box-shadow:0 0 0 5px rgba(255,192,203,.25); margin-top:4px}
+    .milestone .content{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:16px}
+    .milestone .content h3{margin:0 0 6px; font-size:18px}
+    .milestone .date{font-size:13px; opacity:.7; margin-bottom:8px}
+    .milestone img{width:100%; height:220px; object-fit:cover; border-radius:12px; margin-top:8px}
+
+    /* Gallery */
+    .gallery{display:grid; gap:14px; max-width:1000px; margin:0 auto}
+    .gallery img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:14px; box-shadow:var(--shadow); cursor:pointer; transition:var(--transition)}
+    .gallery img:hover{transform:scale(1.02)}
+    @media(min-width:768px){
+      .gallery{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:767px){
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* Lightbox */
+    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:60}
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:92vw; max-height:86vh; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .lightbox .close{position:absolute; top:18px; right:18px}
+
+    /* Secret Message */
+    .secret-box{max-width:760px; margin:0 auto; display:grid; gap:14px}
+    .secret-inputs{display:flex; gap:10px; flex-wrap:wrap}
+    .secret-inputs input{
+      flex:1 1 240px; padding:10px 12px; border-radius:12px; border:1px solid rgba(0,0,0,.12); outline:none; transition:var(--transition);
+      background:#fff
+    }
+    .secret-inputs input:focus{box-shadow:0 0 0 4px rgba(255,192,203,.25)}
+    .secret-revealed{display:none; opacity:0; transform:translateY(8px); transition:var(--transition)}
+    .secret-revealed.show{display:block; opacity:1; transform:none}
+    .error{color:#B23B5B}
+
+    /* Footer */
+    footer{padding:40px 16px; text-align:center; opacity:.8}
+    .divider{height:1px; background:linear-gradient(90deg, rgba(255,192,203,.2), rgba(0,0,0,.1), rgba(255,192,203,.2)); margin:24px 0}
+
+    /* Heart cursor particles */
+    .heart{position:fixed; pointer-events:none; z-index:100; font-size:16px; color:var(--pink); opacity:1; transform:translate(-50%, -50%); animation: floatFade 1s ease forwards}
+    @keyframes floatFade{
+      from{opacity:1; transform:translate(-50%, -50%) scale(1)}
+      to{opacity:0; transform:translate(-50%, -100%) scale(0.8)}
+    }
+
+    /* Responsive layouts */
+    .two-col{display:grid; grid-template-columns:1fr; gap:20px; align-items:center}
+    @media(min-width:992px){.two-col{grid-template-columns:1fr 1fr}}
+    .soft-card{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px}
+
+    /* Audio control */
+    .audio-toggle{
+      position:fixed; right:16px; bottom:16px; z-index:70
+    }
+  </style>
+</head>
+<body>
+  <!-- Accessible skip link -->
+  <a href="#beranda" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Lewati ke konten</a>
+
+  <header>
+    <div class="container">
+      <nav aria-label="Navigasi utama">
+        <div class="brand">♡ Our Story</div>
+        <div class="nav-links">
+          <a href="#beranda">Beranda</a>
+          <a href="#kisah">Kisah Kita</a>
+          <a href="#galeri">Galeri</a>
+          <a href="#pesan">Pesan Rahasia</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. BERANDA / INVITATION -->
+    <section id="beranda" class="hero">
+      <div class="container">
+        <div class="card" style="padding:28px; display:grid; gap:12px;">
+          <h1 id="title" aria-label="Nama Pasangan">Alya & Rafi</h1>
+          <div class="date">Sejak 12 Mei 2023 · Jakarta</div>
+          <p class="quote" id="typing" aria-live="polite"></p>
+          <div style="margin-top:8px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+            <a class="btn" href="#kisah">Lihat Kisah Kita ♡</a>
+            <button class="btn" id="scrollToMusic" type="button">Putar Musik</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. KISAH KITA / TIMELINE -->
+    <section id="kisah">
+      <div class="container">
+        <h2>Kisah Kita</h2>
+        <p class="section-desc">Beberapa momen yang merangkai perjalanan kecil kita. Garis lembut dan titik soft pink menjaga semuanya tetap rapi dan manis.</p>
+        <div class="timeline" aria-label="Timeline hubungan">
+          <article class="milestone">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="content">
+              <h3>Pertemuan Pertama</h3>
+              <div class="date">12 Mei 2023</div>
+              <p>Di sebuah kedai kopi dengan musik pelan, senyummu mengacaukan rencana hari itu. Dalam cara terbaik.</p>
+              <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop" alt="Dua cangkir kopi di meja kayu" loading="lazy" />
+            </div>
+          </article>
+          <article class="milestone">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="content">
+              <h3>Kencan Pertama</h3>
+              <div class="date">28 Mei 2023</div>
+              <p>Taman kota dan obrolan yang tidak selesai-selesai. Dunia mengecil jadi dua orang.</p>
+              <img src="https://images.unsplash.com/photo-1520975682031-ae9f61fbd4e5?q=80&w=1600&auto=format&fit=crop" alt="Sejoli berjalan di taman saat senja" loading="lazy" />
+            </div>
+          </article>
+          <article class="milestone">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="content">
+              <h3>Liburan Pertama</h3>
+              <div class="date">1 Februari 2024</div>
+              <p>Lautan, angin, dan segala yang terasa seperti rumah.</p>
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt="Pantai berpasir dengan ombak tenang" loading="lazy" />
+            </div>
+          </article>
+          <article class="milestone">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="content">
+              <h3>Lamaran</h3>
+              <div class="date">17 Juni 2025</div>
+              <p>Satu pertanyaan, satu jawaban, banyak masa depan.</p>
+              <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop" alt="Cincin di tangan dengan latar bokeh" loading="lazy" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. GALERI MOMEN TERBAIK -->
+    <section id="galeri">
+      <div class="container">
+        <h2>Galeri Momen Terbaik</h2>
+        <p class="section-desc">Grid foto minimalis, klik untuk melihat lebih besar. Tidak ada border tebal, hanya sudut membulat dan bayangan lembut.</p>
+        <div class="gallery" aria-label="Galeri foto">
+          <img src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?q=80&w=1200&auto=format&fit=crop" alt="Siluet pasangan di senja" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200&auto=format&fit=crop" alt="Buket bunga lembut" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1517038775864-2d36aa78e8d8?q=80&w=1200&auto=format&fit=crop" alt="Tangan saling menggenggam" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Pantai dengan jejak kaki" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?q=80&w=1200&auto=format&fit=crop" alt="Cahaya lilin hangat" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=1200&auto=format&fit=crop" alt="Kue kecil dengan stroberi" loading="lazy" />
+        </div>
+      </div>
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gambar diperbesar">
+        <button class="btn close" type="button" aria-label="Tutup" onclick="closeLightbox()">Tutup ✕</button>
+        <img id="lightbox-img" alt="Gambar diperbesar" />
+      </div>
+    </section>
+
+    <!-- 4. PESAN CINTA RAHASIA -->
+    <section id="pesan">
+      <div class="container">
+        <h2>Pesan Cinta Rahasia</h2>
+        <p class="section-desc">Masukkan kata sandi sederhana (misalnya tanggal jadian) untuk membuka pesan. Jika salah, pesan lembut akan muncul.</p>
+        <div class="secret-box soft-card">
+          <div class="secret-inputs">
+            <input id="password" type="password" placeholder="Kata sandi (contoh: 12052023)" autocomplete="off" aria-label="Kata sandi" />
+            <button class="btn" id="revealBtn" type="button">Buka Pesan</button>
+          </div>
+          <div id="secretError" class="muted" aria-live="polite"></div>
+          <div id="secretMessage" class="secret-revealed">
+            <h3 style="font-family:'Allura', cursive; font-size:28px; margin:0 0 8px">Untukmu</h3>
+            <p>
+              Aku menyukai cara dunia menjadi tenang setiap kali kamu menatap. Kamu tidak harus sempurna. Kamu hanya perlu tetap menjadi kamu, dan aku akan memilihmu di setiap versi hidup yang mungkin.
+              Terima kasih sudah menjadi rumah.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="divider"></div>
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Alya & Rafi. Dibuat dengan White Oat & Soft Pink.</p>
+    </div>
+  </footer>
+
+  <!-- Audio Background -->
+  <audio id="bgm" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/10/23/audio_2c2f6a3c6d.mp3?filename=romantic-piano-ambient-124008.mp3"></audio>
+  <button class="btn audio-toggle" id="audioToggle" type="button" aria-pressed="false" aria-label="Toggle musik">Play ♫</button>
+
+  <script>
+    // ===== Constants (customize names/date/password easily) =====
+    const COUPLE_NAMES = 'Alya & Rafi';
+    const IMPORTANT_DATE = 'Sejak 12 Mei 2023 · Jakarta';
+    const TYPING_TEXT = '“Terima kasih sudah singgah, tetaplah lebih lama.”';
+    const SECRET = '12052023'; // contoh: tanggal jadian ddmmyyyy
+
+    // ===== Hero dynamic content + typing effect =====
+    document.getElementById('title').textContent = COUPLE_NAMES;
+    document.querySelector('.date').textContent = IMPORTANT_DATE;
+    const typingEl = document.getElementById('typing');
+    const chars = Array.from(TYPING_TEXT);
+    let idx = 0;
+    function typeNext(){
+      if(idx <= chars.length){
+        typingEl.textContent = chars.slice(0, idx).join('');
+        idx++;
+        setTimeout(typeNext, 60); // smooth typing
+      }
+    }
+    typeNext();
+
+    // ===== Gallery Lightbox =====
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.gallery img').forEach(img =>{
+      img.addEventListener('click', ()=>{
+        lightboxImg.src = img.src;
+        lightbox.classList.add('open');
+      })
+    })
+    function closeLightbox(){ lightbox.classList.remove('open'); }
+    window.closeLightbox = closeLightbox;
+    lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeLightbox(); })
+
+    // ===== Secret Message password check =====
+    const passwordInput = document.getElementById('password');
+    const revealBtn = document.getElementById('revealBtn');
+    const secretMsg = document.getElementById('secretMessage');
+    const secretError = document.getElementById('secretError');
+    revealBtn.addEventListener('click', ()=>{
+      const ok = passwordInput.value.trim() === SECRET;
+      if(ok){
+        secretError.textContent = '';
+        secretMsg.classList.add('show');
+      } else {
+        secretMsg.classList.remove('show');
+        secretError.innerHTML = '<span class="error">Bukan kamu, Sayang 😉</span>';
+      }
+    })
+    passwordInput.addEventListener('keydown', e=>{ if(e.key==='Enter') revealBtn.click(); })
+
+    // ===== Audio: autoplay attempt + toggle =====
+    const audio = document.getElementById('bgm');
+    const toggleBtn = document.getElementById('audioToggle');
+    let isPlaying = false;
+
+    function updateAudioUI(){
+      toggleBtn.textContent = isPlaying ? 'Mute ♫' : 'Play ♫';
+      toggleBtn.setAttribute('aria-pressed', String(isPlaying));
+    }
+    async function tryAutoplay(){
+      try{
+        await audio.play();
+        isPlaying = true;
+      }catch(err){
+        // browser blocked; wait for user gesture
+        isPlaying = false;
+      }
+      updateAudioUI();
+    }
+    tryAutoplay();
+    toggleBtn.addEventListener('click', async ()=>{
+      if(isPlaying){
+        audio.pause(); isPlaying = false;
+      } else {
+        try{ await audio.play(); isPlaying = true; }catch(e){ /* ignore */ }
+      }
+      updateAudioUI();
+    })
+
+    // provide an explicit focusable button to start music too
+    document.getElementById('scrollToMusic').addEventListener('click', async ()=>{
+      try{ await audio.play(); isPlaying = true; updateAudioUI(); }catch(e){}
+      document.getElementById('kisah').scrollIntoView({behavior:'smooth'});
+    })
+
+    // ===== Floating heart particles on pointer move =====
+    function spawnHeart(x, y){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = '❤';
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      document.body.appendChild(h);
+      h.addEventListener('animationend', ()=>h.remove());
+    }
+    window.addEventListener('mousemove', e=>{ spawnHeart(e.clientX, e.clientY); });
+    window.addEventListener('touchmove', e=>{
+      if(e.touches && e.touches[0]){
+        spawnHeart(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, {passive:true});
+
+    // ===== Year in footer =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
